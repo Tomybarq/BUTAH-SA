@@ -1,82 +1,69 @@
-import React, { useState, useEffect, useRef } from "react";
-import { motion, useInView } from "framer-motion";
-import { Users, Activity, HandHeart } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Users, Activity, Heart, Handshake } from "lucide-react";
 
-function AnimatedCounter({ target, suffix = "", duration = 2000 }) {
+const stats = [
+  { icon: Users, value: 500, label: "مستفيد", suffix: "+" },
+  { icon: Activity, value: 30, label: "برنامج ونشاط", suffix: "+" },
+  { icon: Heart, value: 100, label: "متطوع", suffix: "+" },
+  { icon: Handshake, value: 20, label: "شريك داعم", suffix: "+" },
+];
+
+function useCounter(target, duration = 2000, start = false) {
   const [count, setCount] = useState(0);
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
-
   useEffect(() => {
-    if (!isInView) return;
-    let start = 0;
-    const increment = target / (duration / 16);
-    const timer = setInterval(() => {
-      start += increment;
-      if (start >= target) {
-        setCount(target);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(start));
-      }
-    }, 16);
-    return () => clearInterval(timer);
-  }, [isInView, target, duration]);
+    if (!start) return;
+    let startTime = null;
+    const step = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      setCount(Math.floor(progress * target));
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, [target, duration, start]);
+  return count;
+}
 
+function StatCard({ icon: IconComp, value, label, suffix, active }) {
+  const count = useCounter(value, 1800, active);
   return (
-    <span ref={ref}>
-      {count.toLocaleString("ar-SA")}
-      {suffix}
-    </span>
+    <div className="flex flex-col items-center text-center group">
+      <div className="w-20 h-20 bg-gradient-to-br from-green-600 to-green-800 rounded-2xl flex items-center justify-center mb-5 shadow-lg group-hover:scale-110 transition-transform duration-300">
+        <IconComp className="w-9 h-9 text-white" />
+      </div>
+      <div className="text-5xl font-black text-gray-900 mb-1">
+        {count}{suffix}
+      </div>
+      <div className="text-gray-500 font-medium text-base">{label}</div>
+    </div>
   );
 }
 
-const stats = [
-  { icon: Users, value: 1500, label: "مستفيد", suffix: "+" },
-  { icon: Activity, value: 50, label: "نشاط ومبادرة", suffix: "+" },
-  { icon: HandHeart, value: 200, label: "متطوع", suffix: "+" }
-];
-
 export default function StatsSection() {
+  const ref = useRef(null);
+  const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setActive(true); },
+      { threshold: 0.3 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="relative py-20 overflow-hidden" dir="rtl">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-bl from-[#0F4D2E] via-[#1B6B3A] to-[#0A3520]" />
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-10 right-10 w-40 h-40 border border-white rounded-full" />
-        <div className="absolute bottom-10 left-10 w-60 h-60 border border-white rounded-full" />
-      </div>
-
-      <div className="relative z-10 max-w-5xl mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <span className="text-[#C8A24E] text-sm font-semibold tracking-widest">أرقامنا</span>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mt-3">إنجازاتنا بالأرقام</h2>
-        </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {stats.map((stat, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.15 }}
-              className="text-center group"
-            >
-              <div className="w-16 h-16 mx-auto rounded-2xl bg-white/10 backdrop-blur-sm border border-white/10 flex items-center justify-center mb-6 group-hover:bg-[#C8A24E]/20 group-hover:border-[#C8A24E]/30 transition-all duration-500">
-                <stat.icon className="w-7 h-7 text-[#C8A24E]" />
-              </div>
-              <div className="text-5xl md:text-6xl font-bold text-white mb-3">
-                <AnimatedCounter target={stat.value} suffix={stat.suffix} />
-              </div>
-              <p className="text-white/60 text-lg">{stat.label}</p>
-            </motion.div>
+    <section ref={ref} className="py-20 bg-gradient-to-br from-gray-50 to-green-50">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="text-center mb-14">
+          <span className="inline-block text-green-700 font-bold text-sm bg-green-100 px-4 py-1.5 rounded-full mb-3">
+            إنجازاتنا بالأرقام
+          </span>
+          <h2 className="text-4xl font-black text-gray-900">أثرنا في الأرقام</h2>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
+          {stats.map((s) => (
+            <StatCard key={s.label} {...s} active={active} />
           ))}
         </div>
       </div>
