@@ -100,7 +100,7 @@ export default function FooterSection() {
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-[#C8A24E] flex-shrink-0" />
-                <a href="mailto:info@hsw.org.sa" className="text-white/50 hover:text-[#C8A24E] transition-colors text-sm">
+                <a href="mailto:info@butah-sa.org" className="text-white/50 hover:text-[#C8A24E] transition-colors text-sm">
                   info@hsw.org.sa
                 </a>
               </li>
