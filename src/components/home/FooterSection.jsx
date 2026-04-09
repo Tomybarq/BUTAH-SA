@@ -2,19 +2,19 @@ import React from "react";
 import { Phone, Mail, MapPin, ExternalLink } from "lucide-react";
 
 const quickLinks = [
-  { label: "عن الجمعية", href: "https://hsw.org.sa/aboutus" },
-  { label: "أخبارنا", href: "https://hsw.org.sa/category/news/" },
-  { label: "التقارير", href: "https://hsw.org.sa/category/reports/" },
-  { label: "الوظائف", href: "https://hsw.org.sa/" },
-  { label: "اتصل بنا", href: "https://hsw.org.sa/" }
-];
+{ label: "عن الجمعية", href: "https://hsw.org.sa/aboutus" },
+{ label: "أخبارنا", href: "https://hsw.org.sa/category/news/" },
+{ label: "التقارير", href: "https://hsw.org.sa/category/reports/" },
+{ label: "الوظائف", href: "https://hsw.org.sa/" },
+{ label: "اتصل بنا", href: "https://hsw.org.sa/" }];
+
 
 const donationLinks = [
-  { label: "الحالات الإنسانية", href: "https://store.hsw.org.sa/p/118870" },
-  { label: "سقيا الماء", href: "https://store.hsw.org.sa/p/118873" },
-  { label: "إفطار صائم", href: "https://store.hsw.org.sa/p/118868" },
-  { label: "كفالة الأرامل", href: "https://store.hsw.org.sa/p/118871" }
-];
+{ label: "الحالات الإنسانية", href: "https://store.hsw.org.sa/p/118870" },
+{ label: "سقيا الماء", href: "https://store.hsw.org.sa/p/118873" },
+{ label: "إفطار صائم", href: "https://store.hsw.org.sa/p/118868" },
+{ label: "كفالة الأرامل", href: "https://store.hsw.org.sa/p/118871" }];
+
 
 export default function FooterSection() {
   return (
@@ -24,11 +24,11 @@ export default function FooterSection() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-6">
-              <img 
-                src="https://hsw.org.sa/wp-content/uploads/2025/06/logo.png" 
-                alt="Logo" 
-                className="w-12 h-12 object-contain"
-              />
+              <img
+                src="https://hsw.org.sa/wp-content/uploads/2025/06/logo.png"
+                alt="Logo"
+                className="w-12 h-12 object-contain" />
+              
               <div>
                 <h3 className="font-bold text-lg">جمعية الخدمات الإنسانية</h3>
                 <p className="text-white/50 text-sm">بوتدة</p>
@@ -49,18 +49,18 @@ export default function FooterSection() {
               <div className="absolute -bottom-2 right-0 w-8 h-0.5 bg-[#C8A24E] rounded-full" />
             </h4>
             <ul className="space-y-3">
-              {quickLinks.map((link, i) => (
-                <li key={i}>
-                  <a 
-                    href={link.href} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-white/50 hover:text-[#C8A24E] transition-colors duration-300 text-sm inline-flex items-center gap-2"
-                  >
+              {quickLinks.map((link, i) =>
+              <li key={i}>
+                  <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/50 hover:text-[#C8A24E] transition-colors duration-300 text-sm inline-flex items-center gap-2">
+                  
                     {link.label}
                   </a>
                 </li>
-              ))}
+              )}
             </ul>
           </div>
 
@@ -71,19 +71,19 @@ export default function FooterSection() {
               <div className="absolute -bottom-2 right-0 w-8 h-0.5 bg-[#C8A24E] rounded-full" />
             </h4>
             <ul className="space-y-3">
-              {donationLinks.map((link, i) => (
-                <li key={i}>
-                  <a 
-                    href={link.href} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-white/50 hover:text-[#C8A24E] transition-colors duration-300 text-sm inline-flex items-center gap-2"
-                  >
+              {donationLinks.map((link, i) =>
+              <li key={i}>
+                  <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/50 hover:text-[#C8A24E] transition-colors duration-300 text-sm inline-flex items-center gap-2">
+                  
                     <ExternalLink className="w-3 h-3" />
                     {link.label}
                   </a>
                 </li>
-              ))}
+              )}
             </ul>
           </div>
 
@@ -100,8 +100,8 @@ export default function FooterSection() {
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-[#C8A24E] flex-shrink-0" />
-                <a href="mailto:info@butah-sa.org" className="text-white/50 hover:text-[#C8A24E] transition-colors text-sm">
-                  info@hsw.org.sa
+                <a href="mailto:info@butah-sa.org" className="text-white/50 hover:text-[#C8A24E] transition-colors text-sm">info@butah-
+
                 </a>
               </li>
             </ul>
@@ -122,6 +122,6 @@ export default function FooterSection() {
           </div>
         </div>
       </div>
-    </footer>
-  );
+    </footer>);
+
 }
