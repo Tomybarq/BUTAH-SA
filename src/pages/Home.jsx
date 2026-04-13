@@ -3,6 +3,7 @@ import Navbar from "../components/home/Navbar";
 import HeroSection from "../components/home/HeroSection";
 import AboutSection from "../components/home/AboutSection";
 import StatsSection from "../components/home/StatsSection";
+import CertificateSection from "../components/home/CertificateSection";
 import ServicesSection from "../components/home/ServicesSection";
 import NewsSection from "../components/home/NewsSection";
 import FooterSection from "../components/home/FooterSection";
@@ -15,6 +16,7 @@ export default function Home() {
         <HeroSection />
       </div>
       <AboutSection />
+      <CertificateSection />
       <StatsSection />
       <ServicesSection />
       <NewsSection />
