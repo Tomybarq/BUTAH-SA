@@ -7,6 +7,7 @@ import CertificateSection from "../components/home/CertificateSection";
 import ServicesSection from "../components/home/ServicesSection";
 import NewsSection from "../components/home/NewsSection";
 import FooterSection from "../components/home/FooterSection";
+import WhatsAppButton from "../components/home/WhatsAppButton";
 
 export default function Home() {
   return (
@@ -21,6 +22,7 @@ export default function Home() {
       <ServicesSection />
       <NewsSection />
       <FooterSection />
+      <WhatsAppButton />
     </div>
   );
 }
